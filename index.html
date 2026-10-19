@@ -896,7 +896,7 @@
             
             const step = (endAngleRad - startAngleRad) / (totalChars - 1);
 
-            ctx.font = '900 40px Arial, sans-serif';
+            ctx.font = '700 36px Arial, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
@@ -908,7 +908,7 @@
                 ctx.translate(0, -radius);
 
                 const char = i < brandMain.length ? brandMain[i] : brandLast;
-                ctx.fillStyle = i < brandMain.length ? '#f2e8d8' : '#ff5500'; // Orange N
+                ctx.fillStyle = i < brandMain.length ? '#b0b8b5' : '#cc4400'; // Muted wire-like branding color
                 ctx.fillText(char, 0, 0);
                 ctx.restore();
             }
@@ -958,7 +958,7 @@
                 drawSegment(cx, cy, rTripleIn, rOuterBull, a1, a2, isEven ? '#111111' : '#f0e6d2');
                 drawSegment(cx, cy, rDoubleOut, rDoubleIn, a1, a2, isEven ? '#e03e11' : '#0e8241');
 
-                // Large Wireframe Outer Ring Numbers (42px, Metallic Greyish Silver)
+                // Thinner, wire-like gray outer ring numbers (normal weight, muted gray)
                 const numAngle = a1 + angleStep / 2;
                 const numX = cx + 310 * Math.cos(numAngle);
                 const numY = cy + 310 * Math.sin(numAngle);
@@ -966,13 +966,10 @@
                 ctx.save();
                 ctx.translate(numX, numY);
 
-                ctx.font = 'bold 42px sans-serif';
+                ctx.font = '38px sans-serif'; // Regular weight, lighter appearance
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.strokeStyle = '#111111';
-                ctx.lineWidth = 4;
-                ctx.strokeText(SECTORS[i].toString(), 0, 0);
-                ctx.fillStyle = '#c0c0c0'; // Greyish Silver
+                ctx.fillStyle = '#8c9894'; // Muted metallic wire gray
                 ctx.fillText(SECTORS[i].toString(), 0, 0);
                 ctx.restore();
             }
@@ -983,8 +980,8 @@
             // Wire Ring holding the Wire Numbers
             ctx.beginPath();
             ctx.arc(cx, cy, 310, 0, Math.PI * 2);
-            ctx.strokeStyle = '#e0e0e0';
-            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = '#8c9894';
+            ctx.lineWidth = 1.5;
             ctx.stroke();
 
             // Bulls
