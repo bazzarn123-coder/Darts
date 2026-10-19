@@ -10,7 +10,7 @@
         :root {
             --felt-color: #1b4d3e;
             --felt-gradient: radial-gradient(circle at center, #246552 0%, #113328 100%);
-            --board-padding: 8px;
+            --board-padding: 4px;
         }
 
         * {
@@ -100,7 +100,7 @@
         /* HEADER */
         header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 14px; background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(5px);
+            padding: 6px 12px; background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(5px);
             font-size: 0.85rem; font-weight: 600; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .stat-item { display: flex; flex-direction: column; align-items: center; }
@@ -118,29 +118,26 @@
         }
 
         .scoreboard-container {
-            display: flex; width: 100%; max-width: 420px; justify-content: space-around;
+            display: flex; width: 100%; max-width: 480px; justify-content: space-around;
             background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px; padding: 8px; backdrop-filter: blur(5px); gap: 6px;
+            border-radius: 12px; padding: 6px; backdrop-filter: blur(5px); gap: 6px;
         }
         .player-card {
             display: flex; flex-direction: column; align-items: center; flex: 1;
-            padding: 6px; border-radius: 8px; transition: all 0.3s;
+            padding: 4px 6px; border-radius: 8px; transition: all 0.3s;
         }
         .player-card.active {
             background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700;
         }
         .p-name { font-size: 0.75rem; text-transform: uppercase; color: #a3c1ad; font-weight: 700; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-        .p-score { font-size: 1.8rem; font-weight: 900; color: #ffd700; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
-        .dart-indicators { display: flex; gap: 4px; margin-top: 2px; }
-        .dart-icon { font-size: 0.8rem; opacity: 0.2; }
-        .dart-icon.active { opacity: 1; }
-
+        .p-score { font-size: 1.6rem; font-weight: 900; color: #ffd700; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        
         /* THREE-DART OUT HELPER */
         .checkout-helper {
             font-size: 0.65rem;
             font-weight: 700;
             color: #ffd700;
-            margin-top: 4px;
+            margin-top: 2px;
             background: rgba(0, 0, 0, 0.3);
             padding: 2px 6px;
             border-radius: 4px;
@@ -153,15 +150,56 @@
             width: 100%;
         }
 
-        /* FIXED RESPONSIVE BOARD WRAPPER - PREVENTS OBLONG STRETCHING */
+        /* BOARD AREA CONTAINER & SIDE SCORE BOXES */
+        .board-area-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 650px;
+            margin: 14px auto 0 auto;
+        }
+
+        .side-score-box {
+            position: absolute;
+            top: -36px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 10px;
+            padding: 6px 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            min-width: 78px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            z-index: 20;
+        }
+        .side-score-box.left-box { left: 2px; }
+        .side-score-box.right-box { right: 2px; }
+
+        .side-box-label {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            color: #a3c1ad;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+        .side-box-val {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255,215,0,0.3);
+        }
+
+        /* DARTBOARD WRAPPER */
         .dartboard-wrapper {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: min(88vw, 48vh);
-            height: min(88vw, 48vh);
-            margin: auto;
+            width: min(94vw, 55vh, 620px);
+            height: min(94vw, 55vh, 620px);
+            margin: 0 auto;
             aspect-ratio: 1 / 1;
         }
         #dartboard-canvas {
@@ -172,14 +210,64 @@
             display: block;
         }
 
+        /* BOTTOM DARTS RACKS BELOW THE BOARD */
+        .bottom-darts-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 520px;
+            padding: 4px 16px;
+            margin-top: -8px;
+        }
+
+        .dart-rack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 6px 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .rack-title {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .rack-darts {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .custom-dart-svg {
+            width: 22px;
+            height: 70px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+        }
+
+        .custom-dart-svg.inactive {
+            opacity: 0.15;
+            filter: grayscale(80%);
+            transform: translateY(4px);
+        }
+
         .turn-status {
-            background: rgba(0,0,0,0.4); border-radius: 20px; padding: 6px 16px;
+            background: rgba(0,0,0,0.4); border-radius: 20px; padding: 4px 16px;
             font-size: 0.85rem; font-weight: bold; color: #a3c1ad; border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 4px;
         }
 
         /* DESKTOP & LARGE SCREEN ENHANCEMENTS */
         @media (min-width: 768px), (min-height: 700px) and (min-width: 600px) {
-            header { padding: 12px 24px; font-size: 1rem; }
+            header { padding: 8px 24px; font-size: 1rem; }
             .stat-label { font-size: 0.7rem; }
             .icon-btn { width: 38px; height: 38px; font-size: 1.1rem; }
 
@@ -187,17 +275,22 @@
             .settings-card { max-width: 440px; padding: 18px 22px; }
             .start-btn { max-width: 440px; font-size: 1.15rem; padding: 16px; }
 
-            .scoreboard-container { max-width: 620px; padding: 12px 18px; gap: 12px; border-radius: 16px; }
+            .scoreboard-container { max-width: 620px; padding: 8px 18px; gap: 12px; border-radius: 16px; }
             .p-name { font-size: 0.95rem; }
-            .p-score { font-size: 2.6rem; }
-            .dart-icon { font-size: 1.1rem; }
-            .checkout-helper { font-size: 0.85rem; min-height: 24px; padding: 4px 10px; }
+            .p-score { font-size: 2.2rem; }
+            .checkout-helper { font-size: 0.85rem; min-height: 22px; padding: 3px 10px; }
+
+            .side-score-box { min-width: 95px; padding: 8px 14px; top: -46px; }
+            .side-box-label { font-size: 0.65rem; }
+            .side-box-val { font-size: 1.6rem; }
 
             .dartboard-wrapper { 
-                width: min(80vw, 55vh, 600px);
-                height: min(80vw, 55vh, 600px);
+                width: min(92vw, 58vh, 660px);
+                height: min(92vw, 58vh, 660px);
             }
-            .turn-status { font-size: 1.1rem; padding: 10px 24px; }
+            .custom-dart-svg { width: 28px; height: 88px; }
+            .rack-title { font-size: 0.75rem; }
+            .turn-status { font-size: 1.05rem; padding: 8px 24px; }
 
             #online-chat-container { max-width: 620px; padding: 8px 14px; }
             #chat-messages { font-size: 0.85rem; height: 22px; }
@@ -273,21 +366,11 @@
             <div class="player-card active" id="p1-card">
                 <div class="p-name" id="p1-name">PLAYER 1</div>
                 <div class="p-score" id="p1-score">301</div>
-                <div class="dart-indicators" id="p1-darts">
-                    <span class="dart-icon active">🎯</span>
-                    <span class="dart-icon active">🎯</span>
-                    <span class="dart-icon active">🎯</span>
-                </div>
                 <div class="checkout-helper" id="p1-checkout">OUT: —</div>
             </div>
             <div class="player-card" id="p2-card">
                 <div class="p-name" id="p2-name">AI</div>
                 <div class="p-score" id="p2-score">301</div>
-                <div class="dart-indicators" id="p2-darts">
-                    <span class="dart-icon">🎯</span>
-                    <span class="dart-icon">🎯</span>
-                    <span class="dart-icon">🎯</span>
-                </div>
                 <div class="checkout-helper" id="p2-checkout">OUT: —</div>
             </div>
         </div>
@@ -301,8 +384,132 @@
             </div>
         </div>
 
-        <div class="dartboard-wrapper">
-            <canvas id="dartboard-canvas" width="600" height="600"></canvas>
+        <!-- DARTBOARD & SIDE SCORE BOXES CONTAINER -->
+        <div class="board-area-container">
+            <!-- Left Side Score Box (Player 1 Turn Total) -->
+            <div class="side-score-box left-box">
+                <div class="side-box-label" id="p1-side-label">PLAYER 1</div>
+                <div class="side-box-val" id="p1-side-val">0</div>
+            </div>
+
+            <!-- DARTBOARD CANVAS -->
+            <div class="dartboard-wrapper">
+                <canvas id="dartboard-canvas" width="680" height="680"></canvas>
+            </div>
+
+            <!-- Right Side Score Box (AI / Player 2 Turn Total) -->
+            <div class="side-score-box right-box">
+                <div class="side-box-label" id="p2-side-label">AI</div>
+                <div class="side-box-val" id="p2-side-val">0</div>
+            </div>
+        </div>
+
+        <!-- UNDER-BOARD DARTS DISPLAY (RED SET ON LEFT, BLUE SET ON RIGHT) -->
+        <div class="bottom-darts-container">
+            <!-- Left: Player 1 (Red Set) -->
+            <div class="dart-rack">
+                <div class="rack-title" id="p1-rack-label" style="color: #ff3333;">PLAYER 1</div>
+                <div class="rack-darts">
+                    <svg class="custom-dart-svg p1-dart" viewBox="0 0 40 160">
+                        <path d="M 20 160 L 17 115 L 23 115 Z" fill="#777777"/>
+                        <path d="M 16 115 L 24 115 L 22 55 L 18 55 Z" fill="url(#tungstenGrad)"/>
+                        <line x1="16" y1="100" x2="24" y2="100" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="90" x2="24" y2="90" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="80" x2="24" y2="80" stroke="#333" stroke-width="1.5"/>
+                        <line x1="17" y1="70" x2="23" y2="70" stroke="#333" stroke-width="1.5"/>
+                        <rect x="18.5" y="22" width="3" height="33" fill="#111"/>
+                        <circle cx="20" cy="40" r="3" fill="none" stroke="#ddd" stroke-width="1"/>
+                        <!-- TRADITIONAL STANDARD FLIGHT SHAPE -->
+                        <path d="M 20 40 L 12 30 L 2 18 L 2 6 L 10 0 L 30 0 L 38 6 L 38 18 L 28 30 Z" fill="#ff1a1a"/>
+                        <path d="M 20 0 L 20 40" stroke="#990000" stroke-width="1.5"/>
+                        <path d="M 12 30 L 20 22 L 28 30" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+                    </svg>
+                    <svg class="custom-dart-svg p1-dart" viewBox="0 0 40 160">
+                        <path d="M 20 160 L 17 115 L 23 115 Z" fill="#777777"/>
+                        <path d="M 16 115 L 24 115 L 22 55 L 18 55 Z" fill="url(#tungstenGrad)"/>
+                        <line x1="16" y1="100" x2="24" y2="100" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="90" x2="24" y2="90" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="80" x2="24" y2="80" stroke="#333" stroke-width="1.5"/>
+                        <line x1="17" y1="70" x2="23" y2="70" stroke="#333" stroke-width="1.5"/>
+                        <rect x="18.5" y="22" width="3" height="33" fill="#111"/>
+                        <circle cx="20" cy="40" r="3" fill="none" stroke="#ddd" stroke-width="1"/>
+                        <path d="M 20 40 L 12 30 L 2 18 L 2 6 L 10 0 L 30 0 L 38 6 L 38 18 L 28 30 Z" fill="#ff1a1a"/>
+                        <path d="M 20 0 L 20 40" stroke="#990000" stroke-width="1.5"/>
+                        <path d="M 12 30 L 20 22 L 28 30" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+                    </svg>
+                    <svg class="custom-dart-svg p1-dart" viewBox="0 0 40 160">
+                        <path d="M 20 160 L 17 115 L 23 115 Z" fill="#777777"/>
+                        <path d="M 16 115 L 24 115 L 22 55 L 18 55 Z" fill="url(#tungstenGrad)"/>
+                        <line x1="16" y1="100" x2="24" y2="100" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="90" x2="24" y2="90" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="80" x2="24" y2="80" stroke="#333" stroke-width="1.5"/>
+                        <line x1="17" y1="70" x2="23" y2="70" stroke="#333" stroke-width="1.5"/>
+                        <rect x="18.5" y="22" width="3" height="33" fill="#111"/>
+                        <circle cx="20" cy="40" r="3" fill="none" stroke="#ddd" stroke-width="1"/>
+                        <path d="M 20 40 L 12 30 L 2 18 L 2 6 L 10 0 L 30 0 L 38 6 L 38 18 L 28 30 Z" fill="#ff1a1a"/>
+                        <path d="M 20 0 L 20 40" stroke="#990000" stroke-width="1.5"/>
+                        <path d="M 12 30 L 20 22 L 28 30" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- SVG Gradient Definitions -->
+            <svg width="0" height="0" style="position:absolute;">
+                <defs>
+                    <linearGradient id="tungstenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#888888" />
+                        <stop offset="50%" stop-color="#ffffff" />
+                        <stop offset="100%" stop-color="#555555" />
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <!-- Right: Player 2 (Blue Set) -->
+            <div class="dart-rack">
+                <div class="rack-title" id="p2-rack-label" style="color: #00bfff;">AI</div>
+                <div class="rack-darts">
+                    <svg class="custom-dart-svg p2-dart" viewBox="0 0 40 160">
+                        <path d="M 20 160 L 17 115 L 23 115 Z" fill="#777777"/>
+                        <path d="M 16 115 L 24 115 L 22 55 L 18 55 Z" fill="url(#tungstenGrad)"/>
+                        <line x1="16" y1="100" x2="24" y2="100" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="90" x2="24" y2="90" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="80" x2="24" y2="80" stroke="#333" stroke-width="1.5"/>
+                        <line x1="17" y1="70" x2="23" y2="70" stroke="#333" stroke-width="1.5"/>
+                        <rect x="18.5" y="22" width="3" height="33" fill="#111"/>
+                        <circle cx="20" cy="40" r="3" fill="none" stroke="#ddd" stroke-width="1"/>
+                        <!-- TRADITIONAL STANDARD FLIGHT SHAPE -->
+                        <path d="M 20 40 L 12 30 L 2 18 L 2 6 L 10 0 L 30 0 L 38 6 L 38 18 L 28 30 Z" fill="#00bfff"/>
+                        <path d="M 20 0 L 20 40" stroke="#005b99" stroke-width="1.5"/>
+                        <path d="M 12 30 L 20 22 L 28 30" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+                    </svg>
+                    <svg class="custom-dart-svg p2-dart" viewBox="0 0 40 160">
+                        <path d="M 20 160 L 17 115 L 23 115 Z" fill="#777777"/>
+                        <path d="M 16 115 L 24 115 L 22 55 L 18 55 Z" fill="url(#tungstenGrad)"/>
+                        <line x1="16" y1="100" x2="24" y2="100" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="90" x2="24" y2="90" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="80" x2="24" y2="80" stroke="#333" stroke-width="1.5"/>
+                        <line x1="17" y1="70" x2="23" y2="70" stroke="#333" stroke-width="1.5"/>
+                        <rect x="18.5" y="22" width="3" height="33" fill="#111"/>
+                        <circle cx="20" cy="40" r="3" fill="none" stroke="#ddd" stroke-width="1"/>
+                        <path d="M 20 40 L 12 30 L 2 18 L 2 6 L 10 0 L 30 0 L 38 6 L 38 18 L 28 30 Z" fill="#00bfff"/>
+                        <path d="M 20 0 L 20 40" stroke="#005b99" stroke-width="1.5"/>
+                        <path d="M 12 30 L 20 22 L 28 30" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+                    </svg>
+                    <svg class="custom-dart-svg p2-dart" viewBox="0 0 40 160">
+                        <path d="M 20 160 L 17 115 L 23 115 Z" fill="#777777"/>
+                        <path d="M 16 115 L 24 115 L 22 55 L 18 55 Z" fill="url(#tungstenGrad)"/>
+                        <line x1="16" y1="100" x2="24" y2="100" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="90" x2="24" y2="90" stroke="#333" stroke-width="1.5"/>
+                        <line x1="16" y1="80" x2="24" y2="80" stroke="#333" stroke-width="1.5"/>
+                        <line x1="17" y1="70" x2="23" y2="70" stroke="#333" stroke-width="1.5"/>
+                        <rect x="18.5" y="22" width="3" height="33" fill="#111"/>
+                        <circle cx="20" cy="40" r="3" fill="none" stroke="#ddd" stroke-width="1"/>
+                        <path d="M 20 40 L 12 30 L 2 18 L 2 6 L 10 0 L 30 0 L 38 6 L 38 18 L 28 30 Z" fill="#00bfff"/>
+                        <path d="M 20 0 L 20 40" stroke="#005b99" stroke-width="1.5"/>
+                        <path d="M 12 30 L 20 22 L 28 30" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+                    </svg>
+                </div>
+            </div>
         </div>
 
         <div class="turn-status" id="turn-status-text">Tap to lock horizontal aim!</div>
@@ -317,6 +524,8 @@
         </div>
     </div>
 
+    <canvas id="texture-canvas" width="400" height="400" style="display:none;"></canvas>
+
     <script>
         const SECTORS = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5];
         
@@ -330,6 +539,7 @@
             myPlayerNum: 1,
             scores: { 1: 301, 2: 301 },
             turnStartScores: { 1: 301, 2: 301 },
+            turnScores: { 1: 0, 2: 0 },
             dartsLeft: 3,
             turnScore: 0,
             time: 0,
@@ -353,7 +563,73 @@
         let peerConn = null;
 
         let animFrameId = null;
+        let corkPatternDark = null;
+        let corkPatternCream = null;
+        let corkPatternRed = null;
+        let corkPatternGreen = null;
+
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Generate heavily stressed, cracked cork / bristle patterns
+        function initCorkTextures() {
+            const tCanvas = document.getElementById('texture-canvas');
+            const tCtx = tCanvas.getContext('2d');
+            const w = tCanvas.width;
+            const h = tCanvas.height;
+
+            function makeStressedPattern(baseColor, crackColor) {
+                tCtx.fillStyle = baseColor;
+                tCtx.fillRect(0, 0, w, h);
+
+                // Dense sisal bristle hair lines
+                tCtx.lineWidth = 0.9;
+                for (let i = 0; i < 6000; i++) {
+                    const x = Math.random() * w;
+                    const y = Math.random() * h;
+                    const length = 5 + Math.random() * 12;
+                    const angle = Math.random() * Math.PI * 2;
+                    
+                    tCtx.strokeStyle = Math.random() > 0.4 ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.18)';
+                    tCtx.beginPath();
+                    tCtx.moveTo(x, y);
+                    tCtx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
+                    tCtx.stroke();
+                }
+
+                // Heavy stressed cracks & deep fractures (pub wear & tear)
+                tCtx.strokeStyle = crackColor;
+                tCtx.lineWidth = 1.6;
+                for (let c = 0; c < 22; c++) {
+                    let cx = Math.random() * w;
+                    let cy = Math.random() * h;
+                    tCtx.beginPath();
+                    tCtx.moveTo(cx, cy);
+                    for (let step = 0; step < 6; step++) {
+                        cx += (Math.random() - 0.5) * 45;
+                        cy += (Math.random() - 0.5) * 45;
+                        tCtx.lineTo(cx, cy);
+                    }
+                    tCtx.stroke();
+                }
+
+                // Impact scuffs & stress marks
+                for (let s = 0; s < 30; s++) {
+                    const sx = Math.random() * w;
+                    const sy = Math.random() * h;
+                    tCtx.fillStyle = 'rgba(0,0,0,0.25)';
+                    tCtx.beginPath();
+                    tCtx.arc(sx, sy, 2 + Math.random() * 4, 0, Math.PI * 2);
+                    tCtx.fill();
+                }
+
+                return ctx.createPattern(tCanvas, 'repeat');
+            }
+
+            corkPatternDark = makeStressedPattern('#141414', 'rgba(0,0,0,0.85)');
+            corkPatternCream = makeStressedPattern('#dfd4be', 'rgba(120,100,80,0.75)');
+            corkPatternRed = makeStressedPattern('#bd2210', 'rgba(50,5,2,0.85)');
+            corkPatternGreen = makeStressedPattern('#0d5c31', 'rgba(2,30,12,0.85)');
+        }
 
         function playSound(type) {
             if (!gameState.soundEnabled) return;
@@ -465,6 +741,11 @@
         const canvas = document.getElementById('dartboard-canvas');
         const ctx = canvas.getContext('2d');
 
+        window.addEventListener('load', () => {
+            initCorkTextures();
+            startAimingLoop();
+        });
+
         document.querySelectorAll('#mode-options .option-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('#mode-options .option-btn').forEach(b => b.classList.remove('selected'));
@@ -526,7 +807,7 @@
 
             const cx = canvas.width / 2;
             const cy = canvas.height / 2;
-            const range = 250;
+            const range = 290;
 
             if (aimState.phase === 'x') {
                 aimState.lockedX = cx + Math.sin(aimState.angle) * range;
@@ -621,6 +902,8 @@
             gameState.scores[2] = gameState.targetScore;
             gameState.turnStartScores[1] = gameState.targetScore;
             gameState.turnStartScores[2] = gameState.targetScore;
+            gameState.turnScores[1] = 0;
+            gameState.turnScores[2] = 0;
             gameState.dartsLeft = 3;
             gameState.turnScore = 0;
             gameState.thrownDarts = [];
@@ -633,6 +916,10 @@
             document.getElementById('p2-name').innerText = gameState.p2Name;
             document.getElementById('p1-score').innerText = gameState.targetScore;
             document.getElementById('p2-score').innerText = gameState.targetScore;
+            document.getElementById('p1-side-label').innerText = gameState.p1Name;
+            document.getElementById('p2-side-label').innerText = gameState.p2Name;
+            document.getElementById('p1-side-val').innerText = '0';
+            document.getElementById('p2-side-val').innerText = '0';
 
             const chatContainer = document.getElementById('online-chat-container');
             if (gameState.mode === 'online') {
@@ -673,23 +960,63 @@
             loop();
         }
 
+        // BAZZARN Branding Across the Top
+        function drawTopBrand(ctx, cx, cy, radius, startAngleRad, endAngleRad) {
+            ctx.save();
+            const brandMain = "BAZZAR";
+            const brandLast = "N";
+            const totalChars = brandMain.length + brandLast.length;
+            
+            const step = (endAngleRad - startAngleRad) / (totalChars - 1);
+
+            ctx.font = '700 36px Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            for (let i = 0; i < totalChars; i++) {
+                const angle = startAngleRad + i * step;
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(angle + Math.PI / 2);
+                ctx.translate(0, -radius);
+
+                const char = i < brandMain.length ? brandMain[i] : brandLast;
+                ctx.fillStyle = i < brandMain.length ? '#b0b8b5' : '#cc4400';
+                ctx.fillText(char, 0, 0);
+                ctx.restore();
+            }
+            ctx.restore();
+        }
+
         function drawBoard() {
             const cx = canvas.width / 2;
             const cy = canvas.height / 2;
-            const radius = 266;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Outer catch ring
-            ctx.beginPath(); ctx.arc(cx, cy, radius + 24, 0, Math.PI * 2);
-            ctx.fillStyle = '#0d0d0d'; ctx.fill();
+            // Outer catch / wooden surround ring
+            ctx.beginPath(); 
+            ctx.arc(cx, cy, 335, 0, Math.PI * 2);
+            ctx.fillStyle = '#080808'; 
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = '#222';
+            ctx.stroke();
 
-            const rDoubleOut = radius;
-            const rDoubleIn = radius - 20;
-            const rTripleOut = radius - 99;
-            const rTripleIn = radius - 119;
-            const rOuterBull = 25;
-            const rInnerBull = 10;
+            // Outer Black Number Ring Background
+            ctx.beginPath();
+            ctx.arc(cx, cy, 328, 0, Math.PI * 2);
+            ctx.arc(cx, cy, 252, 0, Math.PI * 2, true);
+            ctx.fillStyle = '#121212';
+            ctx.fill();
+
+            // Board Playing Radii
+            const rDoubleOut = 245;
+            const rDoubleIn = 230;
+            const rTripleOut = 152;
+            const rTripleIn = 138;
+            const rOuterBull = 38;
+            const rInnerBull = 16;
 
             const angleStep = (Math.PI * 2) / 20;
             const startAngleOffset = -Math.PI / 2 - (angleStep / 2);
@@ -699,32 +1026,70 @@
                 const a2 = a1 + angleStep;
                 const isEven = i % 2 === 0;
 
-                drawSegment(cx, cy, rDoubleIn, rTripleOut, a1, a2, isEven ? '#111' : '#e0d6b8');
-                drawSegment(cx, cy, rTripleOut, rTripleIn, a1, a2, isEven ? '#d32f2f' : '#2e7d32');
-                drawSegment(cx, cy, rTripleIn, rOuterBull, a1, a2, isEven ? '#111' : '#e0d6b8');
-                drawSegment(cx, cy, rDoubleOut, rDoubleIn, a1, a2, isEven ? '#d32f2f' : '#2e7d32');
+                drawSegment(cx, cy, rDoubleIn, rTripleOut, a1, a2, isEven ? corkPatternDark : corkPatternCream);
+                drawSegment(cx, cy, rTripleOut, rTripleIn, a1, a2, isEven ? corkPatternRed : corkPatternGreen);
+                drawSegment(cx, cy, rTripleIn, rOuterBull, a1, a2, isEven ? corkPatternDark : corkPatternCream);
+                drawSegment(cx, cy, rDoubleOut, rDoubleIn, a1, a2, isEven ? corkPatternRed : corkPatternGreen);
 
+                // Enlarged outer ring numbers touching the outer wire ring (42px, radius 300)
                 const numAngle = a1 + angleStep / 2;
-                const numX = cx + (radius + 14) * Math.cos(numAngle);
-                const numY = cy + (radius + 14) * Math.sin(numAngle);
-                ctx.fillStyle = '#fff';
-                ctx.font = 'bold 18px sans-serif';
+                const numX = cx + 300 * Math.cos(numAngle);
+                const numY = cy + 300 * Math.sin(numAngle);
+                
+                ctx.save();
+                ctx.translate(numX, numY);
+
+                ctx.font = '42px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(SECTORS[i].toString(), numX, numY);
+                ctx.fillStyle = '#8c9894';
+                ctx.fillText(SECTORS[i].toString(), 0, 0);
+                ctx.restore();
             }
 
-            // Bulls
-            ctx.beginPath(); ctx.arc(cx, cy, rOuterBull, 0, Math.PI * 2);
-            ctx.fillStyle = '#2e7d32'; ctx.fill();
-            ctx.beginPath(); ctx.arc(cx, cy, rInnerBull, 0, Math.PI * 2);
-            ctx.fillStyle = '#d32f2f'; ctx.fill();
+            // BAZZARN Positioned Directly at the Top
+            drawTopBrand(ctx, cx, cy, 266, -Math.PI * 0.675, -Math.PI * 0.325);
 
-            // Render Thrown Darts
+            // Outer wire ring touching the top/outer edge of all numbers (Radius 322)
+            ctx.beginPath();
+            ctx.arc(cx, cy, 322, 0, Math.PI * 2);
+            ctx.strokeStyle = '#8c9894';
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+
+            // Bulls (Textured with stressed cracked cork patterns)
+            ctx.beginPath(); ctx.arc(cx, cy, rOuterBull, 0, Math.PI * 2);
+            ctx.fillStyle = corkPatternGreen || '#0d5c31'; ctx.fill();
+            ctx.beginPath(); ctx.arc(cx, cy, rInnerBull, 0, Math.PI * 2);
+            ctx.fillStyle = corkPatternRed || '#bd2210'; ctx.fill();
+
+            // Ultra-thin Metallic Wire Spider Frame
+            ctx.strokeStyle = '#cccccc';
+            ctx.lineWidth = 1.4;
+            const wireRadii = [rInnerBull, rOuterBull, rTripleIn, rTripleOut, rDoubleIn, rDoubleOut];
+            wireRadii.forEach(r => {
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+
+            for (let i = 0; i < 20; i++) {
+                const angle = startAngleOffset + (i * angleStep);
+                const x1 = cx + rOuterBull * Math.cos(angle);
+                const y1 = cy + rOuterBull * Math.sin(angle);
+                const x2 = cx + rDoubleOut * Math.cos(angle);
+                const y2 = cy + rDoubleOut * Math.sin(angle);
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            // Render Thrown Darts (Red for P1, Blue for P2)
             gameState.thrownDarts.forEach(d => {
-                ctx.beginPath(); ctx.arc(d.x, d.y, 6, 0, Math.PI * 2);
-                ctx.fillStyle = d.p === 1 ? '#ffd700' : '#00e5ff'; ctx.fill();
-                ctx.strokeStyle = '#000'; ctx.lineWidth = 1.5; ctx.stroke();
+                ctx.beginPath(); ctx.arc(d.x, d.y, 7, 0, Math.PI * 2);
+                ctx.fillStyle = d.p === 1 ? '#ff3333' : '#00bfff'; ctx.fill();
+                ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.stroke();
             });
 
             // Draw Aiming Oscillators
@@ -733,7 +1098,7 @@
                              (gameState.mode === 'online' && gameState.activePlayer === gameState.myPlayerNum);
 
             if (!gameState.isAnimating && isMyTurn) {
-                const range = 250;
+                const range = 290;
                 ctx.strokeStyle = 'rgba(255, 215, 0, 0.8)';
                 ctx.lineWidth = 3;
 
@@ -753,15 +1118,15 @@
             }
         }
 
-        function drawSegment(cx, cy, rOut, rIn, a1, a2, color) {
+        function drawSegment(cx, cy, rOut, rIn, a1, a2, pattern) {
             ctx.beginPath();
             ctx.arc(cx, cy, rOut, a1, a2, false);
             ctx.arc(cx, cy, rIn, a2, a1, true);
             ctx.closePath();
-            ctx.fillStyle = color;
+            ctx.fillStyle = pattern || '#333';
             ctx.fill();
-            ctx.strokeStyle = '#555';
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 0.5;
             ctx.stroke();
         }
 
@@ -772,17 +1137,17 @@
             const dy = y - cy;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            if (dist <= 10) return { score: 50, isDouble: true }; // Inner Bullseye = Double 25
-            if (dist <= 25) return { score: 25, isDouble: false }; // Outer Bull
-            if (dist > 266) return { score: 0, isDouble: false };
+            if (dist <= 16) return { score: 50, isDouble: true }; // Inner Bullseye
+            if (dist <= 38) return { score: 25, isDouble: false }; // Outer Bull
+            if (dist > 245) return { score: 0, isDouble: false }; // Miss
 
             let angle = Math.atan2(dy, dx) + (Math.PI / 2) + (Math.PI / 20);
             if (angle < 0) angle += Math.PI * 2;
             const sectorIdx = Math.floor((angle % (Math.PI * 2)) / (Math.PI / 10));
             const baseVal = SECTORS[sectorIdx];
 
-            if (dist >= 246 && dist <= 266) return { score: baseVal * 2, isDouble: true };
-            if (dist >= 147 && dist <= 167) return { score: baseVal * 3, isDouble: false };
+            if (dist >= 230 && dist <= 245) return { score: baseVal * 2, isDouble: true };
+            if (dist >= 138 && dist <= 152) return { score: baseVal * 3, isDouble: false };
 
             return { score: baseVal, isDouble: false };
         }
@@ -793,10 +1158,16 @@
             const score = hit.score;
             const isDouble = hit.isDouble;
 
-            gameState.thrownDarts.push({ x, y, p: gameState.activePlayer });
+            const currentP = gameState.activePlayer;
+
+            // Reset box value on the FIRST dart of a player's new turn
+            if (gameState.dartsLeft === 3) {
+                gameState.turnScores[currentP] = 0;
+            }
+
+            gameState.thrownDarts.push({ x, y, p: currentP });
             gameState.dartsLeft--;
             
-            const currentP = gameState.activePlayer;
             const remainingScore = gameState.scores[currentP];
             const nextScore = remainingScore - score;
 
@@ -805,9 +1176,11 @@
                 playSound('bust');
                 gameState.scores[currentP] = gameState.turnStartScores[currentP];
                 gameState.turnScore = 0;
+                gameState.turnScores[currentP] = 0;
 
                 document.getElementById(`p${currentP}-score`).innerText = gameState.scores[currentP];
                 document.getElementById('turn-score-val').innerText = '0';
+                document.getElementById(`p${currentP}-side-val`).innerText = '0';
                 
                 const activeName = currentP === 1 ? gameState.p1Name : gameState.p2Name;
                 document.getElementById('turn-status-text').innerText = `💥 BUST! (${activeName})`;
@@ -824,9 +1197,11 @@
             playSound('hit');
             gameState.scores[currentP] = nextScore;
             gameState.turnScore += score;
+            gameState.turnScores[currentP] += score;
 
             document.getElementById(`p${currentP}-score`).innerText = gameState.scores[currentP];
             document.getElementById('turn-score-val').innerText = gameState.turnScore;
+            document.getElementById(`p${currentP}-side-val`).innerText = gameState.turnScores[currentP];
 
             updateUI();
 
@@ -843,7 +1218,7 @@
 
             setTimeout(() => {
                 gameState.isAnimating = false;
-                if (gameState.dartsLeft === 0) {
+                if (gameState.dartsLeft <= 0) {
                     switchTurn();
                 } else {
                     aimState.phase = 'x';
@@ -861,6 +1236,7 @@
             gameState.thrownDarts = [];
             gameState.activePlayer = gameState.activePlayer === 1 ? 2 : 1;
             gameState.turnStartScores[gameState.activePlayer] = gameState.scores[gameState.activePlayer];
+            
             document.getElementById('turn-score-val').innerText = '0';
             
             aimState.phase = 'x';
@@ -880,7 +1256,7 @@
             setTimeout(() => {
                 const cx = canvas.width / 2;
                 const cy = canvas.height / 2;
-                const scatter = 80;
+                const scatter = 70;
                 const x = cx + ((Math.random() - 0.5) * scatter);
                 const y = cy + ((Math.random() - 0.5) * scatter);
                 throwDart(x, y);
@@ -891,16 +1267,31 @@
             document.querySelectorAll('.player-card').forEach(c => c.classList.remove('active'));
             document.getElementById(`p${gameState.activePlayer}-card`).classList.add('active');
 
-            for (let p = 1; p <= 2; p++) {
-                const icons = document.querySelectorAll(`#p${p}-darts .dart-icon`);
-                icons.forEach((ic, idx) => {
-                    if (p === gameState.activePlayer) {
-                        ic.classList.toggle('active', idx < gameState.dartsLeft);
-                    } else {
-                        ic.classList.remove('active');
-                    }
-                });
+            document.getElementById('p1-rack-label').innerText = gameState.p1Name;
+            document.getElementById('p2-rack-label').innerText = gameState.p2Name;
+            document.getElementById('p1-side-label').innerText = gameState.p1Name;
+            document.getElementById('p2-side-label').innerText = gameState.p2Name;
 
+            const p1Darts = document.querySelectorAll('.p1-dart');
+            const p2Darts = document.querySelectorAll('.p2-dart');
+
+            p1Darts.forEach((dart, idx) => {
+                if (gameState.activePlayer === 1) {
+                    dart.classList.toggle('inactive', idx >= gameState.dartsLeft);
+                } else {
+                    dart.classList.add('inactive');
+                }
+            });
+
+            p2Darts.forEach((dart, idx) => {
+                if (gameState.activePlayer === 2) {
+                    dart.classList.toggle('inactive', idx >= gameState.dartsLeft);
+                } else {
+                    dart.classList.add('inactive');
+                }
+            });
+
+            for (let p = 1; p <= 2; p++) {
                 const checkout = getCheckout(gameState.scores[p]);
                 const checkoutEl = document.getElementById(`p${p}-checkout`);
                 if (checkoutEl) {
